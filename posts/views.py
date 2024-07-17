@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.response import Response
@@ -10,44 +9,39 @@ from .serializers import PostSerializer, CommentSerializer
 # Create your views here.
 class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
     def perform_create(self, serializer):
         user = self.request.user
+        if not user.is_authenticated:
+            raise PermissionDenied("You must be logged in.")
+
         if not serializer.is_valid():
             raise ValidationError("Invalid data.")
 
         serializer.save(author=user)
 
-    def get_queryset(self):
-        user = self.request.user
-        if not user.is_authenticated:
-            raise PermissionDenied("You need to be logged in to view notes.")
-
-        return user.posts.all()
-
 
 class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     lookup_field = 'id'
-
-    def get_queryset(self):
-        user = self.request.user
-        if not user.is_authenticated:
-            raise PermissionDenied("You need to be logged in to view notes.")
-
-        return user.posts.all()
+    queryset = Post.objects.all()
 
     def update(self, request, *args, **kwargs):
         post = self.get_object()
-        if post.author != request.user:
-            raise PermissionDenied("You do not have permission to edit this note.")
+        user = self.request.user
+
+        if post.author != user or not user.is_superuser:
+            raise PermissionDenied("You do not have permission to edit this post.")
 
         return super().update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         post = self.get_object()
-        if post.author != request.user:
-            raise PermissionDenied("You do not have permission to delete this note.")
+        user = self.request.user
+
+        if post.author is not request.user or not user.is_superuser:
+            raise PermissionDenied("You do not have permission to delete this post.")
 
         return super().delete(request, *args, **kwargs)
 
@@ -73,5 +67,25 @@ class PostCommentListCreate(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def test(request):
-    return render(request, 'base.html')
+class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
+    lookup_field = 'id'
+    queryset = Comment.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        comment_id = self.kwargs['id']
+        comment = generics.get_object_or_404(Comment, id=comment_id)
+        user = self.request.user
+        if comment.author != request.user or not user.is_superuser:
+            raise PermissionDenied("You do not have permission to edit this post.")
+
+        return super().update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        comment_id = self.kwargs['id']
+        comment = generics.get_object_or_404(Comment, id=comment_id)
+        user = self.request.user
+        if comment.author is not request.user or not user.is_superuser:
+            raise PermissionDenied("You do not have permission to delete this post.")
+
+        return super().delete(request, *args, **kwargs)
