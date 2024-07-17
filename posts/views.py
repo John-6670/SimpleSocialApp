@@ -3,33 +3,38 @@ from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.response import Response
 
 from .models import Comment, Post
-from .serializers import PostSerializer, CommentSerializer
+from .serializers import PostListCreateSerializer, PostUpdateSerializer, CommentSerializer
 
 
 # Create your views here.
 class PostListCreate(generics.ListCreateAPIView):
-    serializer_class = PostSerializer
+    serializer_class = PostListCreateSerializer
     queryset = Post.objects.all()
 
     def perform_create(self, serializer):
         user = self.request.user
         if not user.is_authenticated:
-            raise PermissionDenied("You must be logged in.")
+            raise PermissionDenied('You must be logged in.')
 
         serializer.save(author=user)
 
 
 class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = PostSerializer
+    serializer_class = PostUpdateSerializer
     lookup_field = 'id'
-    queryset = Post.objects.all()
+
+    def get_object(self):
+        return Post.objects.get(id=self.kwargs['id'])
 
     def update(self, request, *args, **kwargs):
         post = self.get_object()
         user = self.request.user
 
-        if post.author != user or not user.is_superuser:
-            raise PermissionDenied("You do not have permission to edit this post.")
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        if post.author.username != user.username:
+            raise PermissionDenied('You do not have permission to edit this post.')
 
         return super().update(request, *args, **kwargs)
 
@@ -37,8 +42,11 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
         post = self.get_object()
         user = self.request.user
 
-        if post.author is not request.user or not user.is_superuser:
-            raise PermissionDenied("You do not have permission to delete this post.")
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        if post.author.username != user.username:
+            raise PermissionDenied('You do not have permission to delete this post.')
 
         return super().delete(request, *args, **kwargs)
 
