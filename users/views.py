@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from .models import UserProfile
 from django.http import JsonResponse
 from rest_framework import generics, status, permissions
 from rest_framework.exceptions import PermissionDenied
@@ -53,7 +53,7 @@ class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserCreate(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
-    queryset = User.objects.all()
+    queryset = UserProfile.objects.all()
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)

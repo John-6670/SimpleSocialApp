@@ -1,13 +1,13 @@
-from rest_framework import serializers, viewsets
-from rest_framework.authtoken.admin import User
+from rest_framework import serializers
+from .models import UserProfile
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'confirm_password']
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'confirm_password']
         write_only_fields = ['password', 'confirm_password']
 
     def validate(self, attrs):
@@ -17,14 +17,16 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         del validated_data['confirm_password']
-        user = User.objects.create_user(**validated_data)
+        user = UserProfile.objects.create_user(**validated_data)
         return user
 
 
 class UserInformationSerializer(serializers.ModelSerializer):
+    # close_friends = serializers.PrimaryKeyRelatedField(many=True, queryset=UserProfile.objects.all())
+
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        model = UserProfile
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'close_friends']
         read_only_fields = ['username', 'id']
 
 
