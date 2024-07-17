@@ -2,19 +2,33 @@ from rest_framework import serializers, viewsets
 from rest_framework.authtoken.admin import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']
-        write_only_fields = ['password']
-        read_only_fields = ['username', 'id', 'password']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'confirm_password']
+        write_only_fields = ['password', 'confirm_password']
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['confirm_password']:
+            raise serializers.ValidationError({"password": "Passwords don't match."})
+        return attrs
 
     def create(self, validated_data):
+        del validated_data['confirm_password']
         user = User.objects.create_user(**validated_data)
         return user
 
 
-class LoginSerializer(serializers.Serializer):
+class UserInformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        read_only_fields = ['username', 'id']
+
+
+class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
@@ -28,12 +42,8 @@ class PasswordChangeSerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
 
-    def validate(self, attrs):
-        # user = self.context.get('user')
-        # if not user.check_password(attrs['old_password']):
-        #     raise serializers.ValidationError('Incorrect password.')
-
-        if attrs['new_password'] != attrs['confirm_password']:
-            raise serializers.ValidationError('Passwords do not match.')
-
-        return attrs
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+        return user

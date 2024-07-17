@@ -16,9 +16,6 @@ class PostListCreate(generics.ListCreateAPIView):
         if not user.is_authenticated:
             raise PermissionDenied("You must be logged in.")
 
-        if not serializer.is_valid():
-            raise ValidationError("Invalid data.")
-
         serializer.save(author=user)
 
 
