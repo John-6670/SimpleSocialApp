@@ -1,9 +1,10 @@
-from rest_framework import generics, status
+from django.contrib.contenttypes.models import ContentType
+from rest_framework import generics, status, serializers
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.response import Response
 
-from .models import Comment, Post
-from .serializers import PostListCreateSerializer, PostUpdateSerializer, CommentSerializer
+from .models import Comment, Post, Like
+from .serializers import PostListCreateSerializer, PostUpdateSerializer, CommentSerializer, LikeSerializer
 
 
 # Create your views here.
@@ -94,3 +95,25 @@ class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
             raise PermissionDenied("You do not have permission to delete this post.")
 
         return super().delete(request, *args, **kwargs)
+
+
+class LikePostView(generics.CreateAPIView):
+    serializer_class = LikeSerializer
+    queryset = Like.objects.all()
+
+    def perform_create(self, serializer):
+        # Access the post object from the URL using `self.get_object()`
+        post = self.get_object()
+        user = self.request.user
+
+        # Check if user already liked the post (optional)
+        if not Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Post), object_id=post.id).exists():
+            # Create a new Like object if not already liked
+            serializer.save(user=user, content_type=ContentType.objects.get_for_model(Post), object_id=post.id)
+        else:
+            raise serializers.ValidationError("You already liked this post.")
+
+    def get_object(self):
+        # Retrieve the post object based on the ID in the URL
+        pk = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
