@@ -5,7 +5,7 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Public access:**
     - View all existing posts and comments.
-  - **Authenticated user access:**
+- **Authenticated user access:**
     - Create new posts and comments.
     - Like/unlike existing posts and comments.
     - Update user information (excluding username).
