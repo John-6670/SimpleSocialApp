@@ -1,11 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-from rest_framework import generics, status, serializers
-from rest_framework.exceptions import ValidationError, PermissionDenied
+from rest_framework import generics, status
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
 from .models import Comment, Post, Like
-from .serializers import PostListCreateSerializer, PostUpdateSerializer, CommentSerializer, LikeSerializer
+from .serializers import (PostListCreateSerializer, PostUpdateSerializer, CommentListCreateSerializer, LikeSerializer,
+                          CommentRetrieveUpdateDestroySerializer)
 
 
 # Create your views here.
@@ -56,7 +57,7 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PostCommentListCreate(generics.ListCreateAPIView):
-    serializer_class = CommentSerializer
+    serializer_class = CommentListCreateSerializer
 
     def get_queryset(self):
         post_id = self.kwargs['id']
@@ -70,32 +71,44 @@ class PostCommentListCreate(generics.ListCreateAPIView):
         post = generics.get_object_or_404(Post, id=post_id)
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(post=post)
+            serializer.save(post=post, author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CommentSerializer
-    lookup_field = 'id'
-    queryset = Comment.objects.all()
+    serializer_class = CommentRetrieveUpdateDestroySerializer
+    lookup_field = 'pk'
+
+    def get_object(self):
+        comment_id = self.kwargs['pk']
+        comment = Comment.objects.filter(id=comment_id).first()
+        if not comment:
+            raise Http404
+        return comment
 
     def update(self, request, *args, **kwargs):
-        comment_id = self.kwargs['id']
-        comment = generics.get_object_or_404(Comment, id=comment_id)
+        comment_id = self.kwargs['pk']
+        comment = self.get_object()
         user = self.request.user
-        if comment.author != request.user or not user.is_superuser:
-            raise PermissionDenied("You do not have permission to edit this post.")
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        if comment.author.username != user.username:
+            raise PermissionDenied('You do not have permission to delete this post.')
 
         return super().update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
-        comment_id = self.kwargs['id']
+        comment_id = self.kwargs['pk']
         comment = generics.get_object_or_404(Comment, id=comment_id)
         user = self.request.user
-        if comment.author is not request.user or not user.is_superuser:
-            raise PermissionDenied("You do not have permission to delete this post.")
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        if comment.author.username != user.username:
+            raise PermissionDenied('You do not have permission to delete this post.')
 
         return super().delete(request, *args, **kwargs)
 
@@ -105,9 +118,13 @@ class LikePostView(generics.CreateAPIView):
     queryset = Like.objects.all()
 
     def perform_create(self, serializer):
-        post = self.get_object()
         user = self.request.user
-        like = Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(post), object_id=post.id).first()
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        post = self.get_object()
+        like = Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(post),
+                                   object_id=post.id).first()
 
         # Check if user already liked the post
         if not like:
@@ -119,3 +136,26 @@ class LikePostView(generics.CreateAPIView):
     def get_object(self):
         # Retrieve the post object based on the ID in the URL
         return Post.objects.get(id=self.kwargs['id'])
+
+
+class LikeCommentView(generics.CreateAPIView):
+    serializer_class = LikeSerializer
+    queryset = Like.objects.all()
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        if not user.is_authenticated:
+            raise PermissionDenied('You must log in first.')
+
+        post = self.get_object()
+        like = Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Comment),
+                                   object_id=post.id).first()
+
+        if not like:
+            serializer.is_valid(raise_exception=True)
+            serializer.save(user=user, content_type=ContentType.objects.get_for_model(Comment), object_id=post.id)
+        else:
+            like.delete()
+
+    def get_object(self):
+        return Post.objects.get(id=self.kwargs['pk'])
