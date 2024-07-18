@@ -102,18 +102,17 @@ class LikePostView(generics.CreateAPIView):
     queryset = Like.objects.all()
 
     def perform_create(self, serializer):
-        # Access the post object from the URL using `self.get_object()`
         post = self.get_object()
         user = self.request.user
+        like = Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(post), object_id=post.id).first()
 
-        # Check if user already liked the post (optional)
-        if not Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Post), object_id=post.id).exists():
-            # Create a new Like object if not already liked
+        # Check if user already liked the post
+        if not like:
+            serializer.is_valid(raise_exception=True)
             serializer.save(user=user, content_type=ContentType.objects.get_for_model(Post), object_id=post.id)
         else:
-            raise serializers.ValidationError("You already liked this post.")
+            like.delete()
 
     def get_object(self):
         # Retrieve the post object based on the ID in the URL
-        pk = self.kwargs.get('pk')
-        return Post.objects.get(pk=id)
+        return Post.objects.get(id=self.kwargs['id'])

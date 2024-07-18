@@ -37,7 +37,7 @@ class PostListCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count']
-        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes', 'likes_count']
+        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count']
 
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
@@ -47,11 +47,9 @@ class PostListCreateSerializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(source='user.username', read_only=True)
-    content_type = serializers.CharField(source='content_type.app_label')  # Get app label
-    object_id = serializers.IntegerField()
-    created_at = serializers.DateTimeField(read_only=True)
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Like
         fields = ['id', 'user', 'content_type', 'object_id', 'created_at']
+        read_only_fields = ['id', 'user', 'content_type', 'object_id', 'created_at']
