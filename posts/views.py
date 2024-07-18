@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.http import Http404
 from rest_framework import generics, status, serializers
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.response import Response
@@ -25,12 +26,14 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_object(self):
-        return Post.objects.get(id=self.kwargs['id'])
+        post = Post.objects.filter(id=self.kwargs['id']).first()
+        if not post:
+            raise Http404
+        return post
 
     def update(self, request, *args, **kwargs):
         post = self.get_object()
         user = self.request.user
-
         if not user.is_authenticated:
             raise PermissionDenied('You must log in first.')
 
