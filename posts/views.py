@@ -75,6 +75,10 @@ class PostCommentListCreate(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
 
     def get_queryset(self):
+        post = Post.objects.filter(id=self.kwargs['id']).first()
+        if not post:
+            raise Http404
+
         queryset = super().get_queryset()
         search_term = self.request.query_params.get('search', None)
         if search_term:
@@ -103,6 +107,10 @@ class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
 
     def get_object(self):
+        post = Post.objects.filter(id=self.kwargs['id']).first()
+        if not post:
+            raise Http404
+        
         comment_id = self.kwargs['pk']
         comment = Comment.objects.filter(id=comment_id).first()
         if not comment:
