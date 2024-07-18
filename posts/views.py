@@ -80,11 +80,17 @@ class PostCommentListCreate(generics.ListCreateAPIView):
 class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommentRetrieveUpdateDestroySerializer
     lookup_field = 'pk'
-    queryset = Comment.objects.all()
+
+    def get_object(self):
+        comment_id = self.kwargs['pk']
+        comment = Comment.objects.filter(id=comment_id).first()
+        if not comment:
+            raise Http404
+        return comment
 
     def update(self, request, *args, **kwargs):
         comment_id = self.kwargs['pk']
-        comment = generics.get_object_or_404(Comment, id=comment_id)
+        comment = self.get_object()
         user = self.request.user
         if not user.is_authenticated:
             raise PermissionDenied('You must log in first.')
