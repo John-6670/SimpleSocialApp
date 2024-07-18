@@ -69,25 +69,25 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Posts:**
 
-| Method |      URL Path      |                      Description                      |
-|:------:|:------------------:|:-----------------------------------------------------:|
-|  GET   |     `/posts/`      |                  Retrieve all posts                   |
-|  POST  |     `/posts/`      |      Create a new post (requires authentication)      |
-|  GET   |   `/posts/:id/`    |            Retrieve a specific post by ID             |
-|  PUT   |   `/posts/:id/`    |         Update a post (requires post author)          |
-| DELETE |   `/posts/:id/`    |         Delete a post (requires post author)          |
-|  Post  | `/posts/:id/like/` | Like/Unlike a specific post (requires authentication) |
+| Method |      URL Path      |                         Description                          |
+|:------:|:------------------:|:------------------------------------------------------------:|
+|  GET   |     `/posts/`      |                      Retrieve all posts                      |
+|  POST  |     `/posts/`      |         Create a new post (requires authentication)          |
+|  GET   |   `/posts/:id/`    |                Retrieve a specific post by ID                |
+|  PUT   |   `/posts/:id/`    | Update a post (requires authentication and being the author) |
+| DELETE |   `/posts/:id/`    | Delete a post (requires authentication and being the author) |
+|  Post  | `/posts/:id/like/` |    Like/Unlike a specific post (requires authentication)     |
 
 - **Comments:**
 
-| Method |            URL Path             |                       Description                        |
-|:------:|:-------------------------------:|:--------------------------------------------------------:|
-|  GET   |     `/posts/:id/comments/`      |        Retrieve all comments for a specific post         |
-|  POST  |     `/posts/:id/comments/`      |   Create a comment on a post (requires authentication)   |
-|  GET   |   `/posts/:id/comments/:pk/`    |            Retrieve a specific comment by ID             |
-|  PUT   |   `/posts/:id/comments/:pk/`    |         Update a comment (requires post author)          |
-| DELETE |   `/posts/:id/comments/:pk/`    |         Delete a comment (requires post author)          |
-|  PUT   | `/posts/:id/comments/:pk/like/` | Like/Unlike a specific comment (requires authentication) |
+| Method |            URL Path             |                           Description                           |
+|:------:|:-------------------------------:|:---------------------------------------------------------------:|
+|  GET   |     `/posts/:id/comments/`      |            Retrieve all comments for a specific post            |
+|  POST  |     `/posts/:id/comments/`      |      Create a comment on a post (requires authentication)       |
+|  GET   |   `/posts/:id/comments/:pk/`    |                Retrieve a specific comment by ID                |
+|  PUT   |   `/posts/:id/comments/:pk/`    | Update a comment (requires authentication and being the author) |
+| DELETE |   `/posts/:id/comments/:pk/`    | Delete a comment (requires authentication and being the author) |
+|  PUT   | `/posts/:id/comments/:pk/like/` |    Like/Unlike a specific comment (requires authentication)     |
 
 - **Users:**
 
@@ -99,3 +99,6 @@ This is a Django REST API project that provides functionalities for users to int
 |  PUT   |      `/account/login/`      |                   Login an existing user                    |
 |  PUT   |     `/account/logout/`      |                Logout from existing account                 |
 |  PUT   | `/account/password-change/` |        Change user password (requires old password)         |
+
+**Note:**
+This project is under development, and I'm working on improving the features and functionalities.
