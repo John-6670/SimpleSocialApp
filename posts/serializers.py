@@ -50,11 +50,14 @@ class PostUpdateSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     likes_count = serializers.SerializerMethodField()
     liked_by_user = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count', 'liked_by_user', 'comments']
-        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count', 'liked_by_user', 'comments']
+        fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count', 'liked_by_user', 'comments_count',
+                  'comments']
+        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count', 'liked_by_user', 'comments_count',
+                            'comments']
 
     def get_likes_count(self, obj):
         return Like.objects.filter(content_type=ContentType.objects.get_for_model(Post), object_id=obj.id).count()
@@ -64,16 +67,22 @@ class PostUpdateSerializer(serializers.ModelSerializer):
         return Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Post),
                                    object_id=obj.id).exists()
 
+    def get_comments_count(self, obj):
+        return Comment.objects.filter(post=obj).count()
+
 
 class PostListCreateSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     likes_count = serializers.SerializerMethodField()
     liked_by_user = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count', 'liked_by_user']
-        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count', 'liked_by_user']
+        fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count', 'liked_by_user',
+                  'comments_count']
+        read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count', 'liked_by_user',
+                            'comments_count']
         search_fields = ['content', 'author__username']
 
     def create(self, validated_data):
@@ -86,6 +95,9 @@ class PostListCreateSerializer(serializers.ModelSerializer):
         user = self.context.get('request').user
         return Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Post),
                                    object_id=obj.id).exists()
+
+    def get_comments_count(self, obj):
+        return Comment.objects.filter(post=obj).count()
 
 
 class LikeSerializer(serializers.ModelSerializer):
