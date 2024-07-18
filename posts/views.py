@@ -1,8 +1,11 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.http import Http404
+from rest_framework import filters
 from rest_framework import generics, status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Comment, Post, Like
 from .serializers import (PostListCreateSerializer, PostUpdateSerializer, CommentListCreateSerializer, LikeSerializer,
@@ -12,7 +15,18 @@ from .serializers import (PostListCreateSerializer, PostUpdateSerializer, Commen
 # Create your views here.
 class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostListCreateSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     queryset = Post.objects.all()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_term = self.request.query_params.get('search', None)
+        if search_term:
+            queryset = queryset.filter(
+                Q(content__icontains=search_term) |
+                Q(author__username__icontains=search_term)
+            )
+        return queryset
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -58,10 +72,17 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class PostCommentListCreate(generics.ListCreateAPIView):
     serializer_class = CommentListCreateSerializer
+    queryset = Comment.objects.all()
 
     def get_queryset(self):
-        post_id = self.kwargs['id']
-        return Comment.objects.filter(post_id=post_id)
+        queryset = super().get_queryset()
+        search_term = self.request.query_params.get('search', None)
+        if search_term:
+            queryset = queryset.filter(
+                Q(content__icontains=search_term) |
+                Q(author__username__icontains=search_term)
+            )
+        return queryset
 
     def create(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

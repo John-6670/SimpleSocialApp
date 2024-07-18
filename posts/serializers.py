@@ -12,6 +12,7 @@ class CommentListCreateSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'author', 'post', 'content', 'likes_count', 'liked_by_user']
         read_only_fields = ['id', 'author', 'post', 'likes_count', 'liked_by_user']
+        search_fields = ['content', 'author__username']
 
     def create(self, validated_data):
         return Comment.objects.create(**validated_data)
@@ -73,6 +74,7 @@ class PostListCreateSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['id', 'author', 'content', 'created_at', 'updated_at', 'likes_count', 'liked_by_user']
         read_only_fields = ['id', 'author', 'created_at', 'updated_at', 'likes_count', 'liked_by_user']
+        search_fields = ['content', 'author__username']
 
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
