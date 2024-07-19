@@ -150,8 +150,12 @@ class UserFollowersListView(generics.ListAPIView):
     serializer_class = UserSmallInformationSerializer
 
     def get_queryset(self):
-        username = self.kwargs['username']
-        user = User.objects.filter(username__iexact=username).first() or self.request.user
+        try:
+            username = self.kwargs['username']
+            user = User.objects.filter(username__iexact=username).first()
+        except KeyError:
+            user = self.request.user
+
         if not user:
             raise Http404
 
@@ -164,8 +168,11 @@ class UserFollowingsListView(generics.ListAPIView):
     serializer_class = UserSmallInformationSerializer
 
     def get_queryset(self):
-        username = self.kwargs['username']
-        user = User.objects.filter(username__iexact=username).first()
+        try:
+            username = self.kwargs['username']
+            user = User.objects.filter(username__iexact=username).first()
+        except KeyError:
+            user = self.request.user
         if not user:
             raise Http404
 

@@ -7,6 +7,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
+from users.models import Follow
 from .models import Comment, Post, Like
 from .serializers import (PostListCreateSerializer, PostUpdateSerializer, CommentListCreateSerializer, LikeSerializer,
                           CommentRetrieveUpdateDestroySerializer)
@@ -19,6 +20,7 @@ class PostListCreate(generics.ListCreateAPIView):
     queryset = Post.objects.all()
 
     def get_queryset(self):
+        user = self.request.user
         queryset = super().get_queryset()
         search_term = self.request.query_params.get('search', None)
         if search_term:
@@ -26,6 +28,13 @@ class PostListCreate(generics.ListCreateAPIView):
                 Q(content__icontains=search_term) |
                 Q(author__username__icontains=search_term)
             )
+        else:
+            following_ids = Follow.objects.filter(follower=user).values_list('id', flat=True)
+            if following_ids:
+                for test in following_ids:
+                    print(test)
+                queryset = queryset.filter(author__id__in=following_ids).order_by('-created_at')
+
         return queryset
 
     def perform_create(self, serializer):
