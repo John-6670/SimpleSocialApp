@@ -5,6 +5,7 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Public access:**
     - View all existing posts and comments.
+    - Search for posts and comments by content and author username.
 - **Authenticated user access:**
     - Create new posts and comments.
     - Like/unlike existing posts and comments.
@@ -18,6 +19,7 @@ This is a Django REST API project that provides functionalities for users to int
 
 - Django (web framework)
 - Django REST framework (API development toolkit)
+- Django Filter (filtering library)
 
 ## Installation
 
@@ -99,6 +101,16 @@ This is a Django REST API project that provides functionalities for users to int
 |  PUT   |      `/account/login/`      |                   Login an existing user                    |
 |  PUT   |     `/account/logout/`      |                Logout from existing account                 |
 |  PUT   | `/account/password-change/` |        Change user password (requires old password)         |
+
+- **Search:**
+You can now search for posts and comments based on their content and the author's username.
+
+| Method |                 URL Path                 |                                   Description                                   |
+|:------:|:----------------------------------------:|:-------------------------------------------------------------------------------:|
+|  GET   |        `/posts/?search=something`        |               Use the search query parameter in the URL for posts               |
+|  GET   | `/posts/:id/comments/?search=something/` | Use the search query parameter within the comments endpoint for a specific post |
+
+The search is case-insensitive and will return results matching the search term in the content or author's username of posts or comments.
 
 **Note:**
 This project is under development, and I'm working on improving the features and functionalities.
