@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
@@ -64,6 +64,17 @@ class UserListView(generics.ListAPIView):
             return queryset.filter(username__icontains=username)
         else:
             raise ValidationError("Query parameter 'username' is required")
+
+
+class UserRetrieveView(generics.RetrieveAPIView):
+    serializer_class = UserInformationSerializer
+    lookup_field = 'username'
+
+    def get_object(self):
+        user = User.objects.filter(username__iexact=self.kwargs['username']).first()
+        if not user:
+            raise Http404
+        return user
 
 
 class UserCreate(generics.CreateAPIView):
