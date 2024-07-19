@@ -25,10 +25,24 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserInformationSerializer(serializers.ModelSerializer):
-    posts = serializers.SerializerMethodField()
+class UserSmallInformationSerializer(serializers.ModelSerializer):
     followers = serializers.SerializerMethodField()
     following = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'followers', 'following']
+        read_only_fields = ['username', 'id', 'followers', 'following']
+
+    def get_followers(self, obj):
+        return obj.followers.count()
+
+    def get_following(self, obj):
+        return obj.following.count()
+
+
+class UserInformationSerializer(UserSmallInformationSerializer):
+    posts = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -39,12 +53,6 @@ class UserInformationSerializer(serializers.ModelSerializer):
         posts = Post.objects.filter(author=obj)
         request = self.context.get('request')
         return PostListCreateSerializer(posts, many=True, context={'request': request}).data
-
-    def get_followers(self, obj):
-        return obj.followers.count()
-
-    def get_following(self, obj):
-        return obj.following.count()
 
 
 class UserLoginSerializer(serializers.Serializer):

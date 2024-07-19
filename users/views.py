@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from users.models import Follow
 from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, \
-    UserInformationSerializer, PasswordChangeSerializer, FollowSerializer
+    UserInformationSerializer, PasswordChangeSerializer, FollowSerializer, UserSmallInformationSerializer
 
 
 # Create your views here.
@@ -143,3 +143,60 @@ class FollowUserView(generics.CreateAPIView):
         except IntegrityError:
             Follow.objects.get(follower=request.user, following=user_to_follow).delete()
             return Response({'message': 'User unfollowed'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class BaseFollowersListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserInformationSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = User.objects.filter(username__iexact=username).first()
+        if not user:
+            raise Http404
+
+        follower_ids = Follow.objects.filter(following=user).values_list('follower_id', flat=True)
+        return User.objects.filter(id__in=follower_ids)
+
+
+class BaseFollowingsListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSmallInformationSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = User.objects.filter(username__iexact=username).first()
+        if not user:
+            raise Http404
+
+        following_id = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
+        return User.objects.filter(id__in=following_id)
+
+
+class UserFollowersListView(BaseFollowersListView):
+    pass
+
+
+class UserFollowingListView(BaseFollowingsListView):
+    pass
+
+
+class ProfileFollowersListView(BaseFollowersListView):
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            follower_id = Follow.objects.filter(following=user).values_list('follower_id', flat=True)
+            return User.objects.filter(id__in=follower_id)
+
+        raise PermissionDenied('You are not logged in')
+
+
+class ProfileFollowingListView(BaseFollowingsListView):
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            following_id = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
+            return User.objects.filter(id__in=following_id)
+
+        raise PermissionDenied('You are not logged in')
+
