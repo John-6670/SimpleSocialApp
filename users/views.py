@@ -145,13 +145,13 @@ class FollowUserView(generics.CreateAPIView):
             return Response({'message': 'User unfollowed'}, status=status.HTTP_204_NO_CONTENT)
 
 
-class BaseFollowersListView(generics.ListAPIView):
+class UserFollowersListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserInformationSerializer
+    serializer_class = UserSmallInformationSerializer
 
     def get_queryset(self):
         username = self.kwargs['username']
-        user = User.objects.filter(username__iexact=username).first()
+        user = User.objects.filter(username__iexact=username).first() or self.request.user
         if not user:
             raise Http404
 
@@ -159,7 +159,7 @@ class BaseFollowersListView(generics.ListAPIView):
         return User.objects.filter(id__in=follower_ids)
 
 
-class BaseFollowingsListView(generics.ListAPIView):
+class UserFollowingsListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserSmallInformationSerializer
 
@@ -171,32 +171,3 @@ class BaseFollowingsListView(generics.ListAPIView):
 
         following_id = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
         return User.objects.filter(id__in=following_id)
-
-
-class UserFollowersListView(BaseFollowersListView):
-    pass
-
-
-class UserFollowingListView(BaseFollowingsListView):
-    pass
-
-
-class ProfileFollowersListView(BaseFollowersListView):
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_authenticated:
-            follower_id = Follow.objects.filter(following=user).values_list('follower_id', flat=True)
-            return User.objects.filter(id__in=follower_id)
-
-        raise PermissionDenied('You are not logged in')
-
-
-class ProfileFollowingListView(BaseFollowingsListView):
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_authenticated:
-            following_id = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
-            return User.objects.filter(id__in=following_id)
-
-        raise PermissionDenied('You are not logged in')
-
