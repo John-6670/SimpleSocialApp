@@ -109,6 +109,7 @@ You can now search for posts and comments based on their content and the author'
 |:------:|:----------------------------------------:|:-------------------------------------------------------------------------------:|
 |  GET   |        `/posts/?search=something`        |               Use the search query parameter in the URL for posts               |
 |  GET   | `/posts/:id/comments/?search=something/` | Use the search query parameter within the comments endpoint for a specific post |
+|  GET   |      `/users/?username=something/`       |            Use the search query parameter within the users endpoint             |
 
 The search is case-insensitive and will return results matching the search term in the content or author's username of posts or comments.
 

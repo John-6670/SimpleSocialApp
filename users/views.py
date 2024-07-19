@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from rest_framework import generics, status, permissions
-from rest_framework.exceptions import PermissionDenied
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, status, permissions, filters
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 
 from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer
@@ -35,7 +36,7 @@ class LogoutView(generics.GenericAPIView):
     def post(self, request):
         logout(request)
         response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/account/login'})
-        response.status_code = status.HTTP_200_OK
+        response.status_code = status.HTTP_204_NO_CONTENT
         return response
 
 
@@ -49,6 +50,20 @@ class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
             return user
 
         raise PermissionDenied('You are not logged in')
+
+
+class UserListView(generics.ListAPIView):
+    serializer_class = UserInformationSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    queryset = User.objects.all()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        username = self.request.query_params.get('username', None)
+        if username:
+            return queryset.filter(username__icontains=username)
+        else:
+            raise ValidationError("Query parameter 'username' is required")
 
 
 class UserCreate(generics.CreateAPIView):
@@ -69,6 +84,9 @@ class PasswordChangeView(generics.UpdateAPIView):
     serializer_class = PasswordChangeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_object(self):
+        return self.request.user
+
     def update(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -85,7 +103,8 @@ class PasswordChangeView(generics.UpdateAPIView):
         if new_password != confirm_password:
             return Response({'message': "Passwords don't match"}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer.save()
+        user.set_password(new_password)
+        user.save()
         login(request, user)
         response = JsonResponse({'message': 'Password changed successfully', 'redirect_url': '/account'})
         response.status_code = status.HTTP_200_OK
