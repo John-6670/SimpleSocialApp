@@ -1,12 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.http import JsonResponse, Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 
-from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer
+from users.models import Follow
+from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, \
+    UserInformationSerializer, PasswordChangeSerializer, FollowSerializer
 
 
 # Create your views here.
@@ -120,3 +123,23 @@ class PasswordChangeView(generics.UpdateAPIView):
         response = JsonResponse({'message': 'Password changed successfully', 'redirect_url': '/account'})
         response.status_code = status.HTTP_200_OK
         return response
+
+
+class FollowUserView(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = FollowSerializer
+
+    def create(self, request, *args, **kwargs):
+        username = self.kwargs['username']
+        user_to_follow = User.objects.filter(username__iexact=username).first()
+        if not user_to_follow:
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if request.user.username == user_to_follow.username:
+            return Response({'message': 'You cannot follow yourself'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            Follow.objects.create(follower=request.user, following=user_to_follow)
+            return Response({'message': 'User followed'}, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            Follow.objects.get(follower=request.user, following=user_to_follow).delete()
+            return Response({'message': 'User unfollowed'}, status=status.HTTP_204_NO_CONTENT)

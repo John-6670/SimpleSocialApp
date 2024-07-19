@@ -10,4 +10,5 @@ urlpatterns = [
     path('password-change/', PasswordChangeView.as_view(), name='password-change'),
     path('', UserListView.as_view(), name='users'),
     path('<str:username>/', UserRetrieveView.as_view(), name='user'),
+    path('<str:username>/follow/', FollowUserView.as_view(), name='follow'),
 ]

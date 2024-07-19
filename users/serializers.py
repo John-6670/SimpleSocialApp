@@ -1,8 +1,9 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers
 from rest_framework.authtoken.admin import User
 
 from posts.models import Post
 from posts.serializers import PostListCreateSerializer
+from users.models import Follow
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -26,16 +27,24 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 class UserInformationSerializer(serializers.ModelSerializer):
     posts = serializers.SerializerMethodField()
+    followers = serializers.SerializerMethodField()
+    following = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'posts']
-        read_only_fields = ['username', 'id', 'posts']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name',  'followers', 'following', 'posts']
+        read_only_fields = ['username', 'id', 'posts', 'followers', 'following']
 
     def get_posts(self, obj):
         posts = Post.objects.filter(author=obj)
         request = self.context.get('request')
-        return PostListCreateSerializer(posts, many=True, context={'request': request[]}).data
+        return PostListCreateSerializer(posts, many=True, context={'request': request}).data
+
+    def get_followers(self, obj):
+        return obj.followers.count()
+
+    def get_following(self, obj):
+        return obj.following.count()
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -51,3 +60,10 @@ class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(write_only=True)
     new_password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
+
+
+class FollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Follow
+        fields = '__all__'
+        read_only_fields = ['id', 'follower', 'following', 'created_at']
