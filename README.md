@@ -135,6 +135,7 @@ The search is case-insensitive and will return results matching the search term 
 
 The application includes a comprehensive suite of tests to ensure all functionalities work as expected. Here are the main test cases:
 
+#### Users:
 - **User Registration:**
     - Test user registration with valid and invalid data.
     - Test user registration without a password.
@@ -167,6 +168,35 @@ The application includes a comprehensive suite of tests to ensure all functional
     - Test showing a user profile.
     - Test showing a user profile when unauthenticated.
     - Test showing a user that does not exist.
+
+#### Posts:
+- **Posts:**
+    - Test retrieving all posts.
+    - Test creating a new post.
+    - Test updating a post.
+    - Test deleting a post.
+    - Test searching for posts.
+    - Test creating a post when unauthenticated.
+    - Test updating a post when not the author.
+
+- **Comments:**
+    - Test retrieving all comments for a specific post.
+    - Test creating a new comment on a post.
+    - Test updating a comment.
+    - Test deleting a comment.
+    - Test searching for comments within a specific post.
+    - Test creating a comment when unauthenticated.
+    - Test updating a comment when not the author.
+
+- **Likes:**
+    - Test liking a post.
+    - Test unliking a post.
+    - Test liking a comment.
+    - Test unliking a comment.
+    - Test liking a post when unauthenticated.
+    - Test unliking a post when unauthenticated.
+    - Test liking a comment when unauthenticated.
+    - Test unliking a comment when unauthenticated.
 
 To run the tests, use the following command:
 
