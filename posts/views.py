@@ -94,7 +94,7 @@ class PostCommentListCreate(generics.ListCreateAPIView):
                 Q(content__icontains=search_term) |
                 Q(author__username__icontains=search_term)
             )
-        return queryset
+        return queryset.filter(parent=None).order_by('-created_at')
 
     def create(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -105,6 +105,30 @@ class PostCommentListCreate(generics.ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save(post=post, author=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PostCommentReplyListCreate(generics.ListCreateAPIView):
+    serializer_class = CommentListCreateSerializer
+
+    def get_queryset(self):
+        comment = Comment.objects.filter(id=self.kwargs['id']).first()
+        if not comment:
+            raise Http404
+
+        return comment.replies.all()  # return all replies to this comment
+
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied("You need to be logged in to comment.")
+
+        comment_id = self.kwargs['id']
+        parent_comment = generics.get_object_or_404(Comment, id=comment_id)
+        serializer = self.get_serializer(data=request.data, parent=parent_comment)
+        if serializer.is_valid():
+            serializer.save(post=parent_comment.post, author=request.user, parent=parent_comment)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

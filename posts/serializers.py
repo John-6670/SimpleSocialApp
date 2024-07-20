@@ -7,11 +7,12 @@ class CommentListCreateSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     likes_count = serializers.SerializerMethodField()
     liked_by_user = serializers.SerializerMethodField()
+    parent = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), required=False)
 
     class Meta:
         model = Comment
-        fields = ['id', 'author', 'post', 'content', 'likes_count', 'liked_by_user']
-        read_only_fields = ['id', 'author', 'post', 'likes_count', 'liked_by_user']
+        fields = ['id', 'author', 'post', 'content', 'likes_count', 'liked_by_user', 'parent']
+        read_only_fields = ['id', 'author', 'post', 'likes_count', 'liked_by_user', 'parent']
         search_fields = ['content', 'author__username']
 
     def create(self, validated_data):
@@ -33,10 +34,11 @@ class CommentRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     likes_count = serializers.SerializerMethodField()
     liked_by_user = serializers.SerializerMethodField()
+    parent = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), required=False)
 
     class Meta:
         model = Comment
-        fields = ['id', 'author', 'post', 'content', 'likes_count', 'liked_by_user']
+        fields = ['id', 'author', 'post', 'content', 'likes_count', 'liked_by_user', 'parent']
         read_only_fields = ['id', 'author', 'post', 'likes_count', 'liked_by_user']
 
     def get_likes_count(self, obj):
