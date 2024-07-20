@@ -131,6 +131,48 @@ The search is case-insensitive and will return results matching the search term 
 |  GET   | `/users/:username/followers/`  |     Retrieve all users following a specific user      |
 |  GET   | `/users/:username/followings/` |    Retrieve all users followed by a specific user     |
 
+## Testing
+
+The application includes a comprehensive suite of tests to ensure all functionalities work as expected. Here are the main test cases:
+
+- **User Registration:**
+    - Test user registration with valid and invalid data.
+    - Test user registration without a password.
+    - Test user registration without a username.
+    - Test user registration without a confirm password.
+    - Test user registration with mismatched passwords.
+    - Test user registration without an email.
+    - Test user registration without a first name.
+    - Test user registration without a last name.
+
+- **User Login:**
+    - Test user login with valid and invalid data.
+    - Test user login without a username.
+    - Test user login without a password.
+    - Test user login with a wrong password.
+    - Test user login with a wrong username.
+
+- **User Logout:**
+    - Test user logout.
+    - Test user logout when unauthenticated.
+
+- **User Follow System:**
+    - Test following a user.
+    - Test following a user when unauthenticated.
+    - Test unfollowing a user.
+    - Test unfollowing a user when unauthenticated.
+    - Test following a user that does not exist.
+
+- **User Profile:**
+    - Test showing a user profile.
+    - Test showing a user profile when unauthenticated.
+    - Test showing a user that does not exist.
+
+To run the tests, use the following command:
+
+```bash
+python manage.py test
+```
 
 **Note:**
 This project is under development, and I'm working on improving the features and functionalities.
