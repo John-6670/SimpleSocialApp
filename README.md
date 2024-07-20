@@ -26,6 +26,10 @@ This is a Django REST API project that provides functionalities for users to int
     - Each user has a profile associated with their account
     - The profile includes a bio, birthdate, and a profile picture.
     - The profile picture is stored in the 'avatars/' directory<br><br>
+- **Comments and replies:**
+    - Users can create comments on posts.
+    - Users can create replies to comments.
+    - Users can view all replies to a specific comment.<br><br>
 
 ### Technologies
 
@@ -94,14 +98,16 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Comments:**
 
-| Method |            URL Path             |                           Description                           |
-|:------:|:-------------------------------:|:---------------------------------------------------------------:|
-|  GET   |     `/posts/:id/comments/`      |            Retrieve all comments for a specific post            |
-|  POST  |     `/posts/:id/comments/`      |      Create a comment on a post (requires authentication)       |
-|  GET   |   `/posts/:id/comments/:pk/`    |                Retrieve a specific comment by ID                |
-|  PUT   |   `/posts/:id/comments/:pk/`    | Update a comment (requires authentication and being the author) |
-| DELETE |   `/posts/:id/comments/:pk/`    | Delete a comment (requires authentication and being the author) |
-|  PUT   | `/posts/:id/comments/:pk/like/` |    Like/Unlike a specific comment (requires authentication)     |
+| Method |              URL Path              |                           Description                           |
+|:------:|:----------------------------------:|:---------------------------------------------------------------:|
+|  GET   |       `/posts/:id/comments/`       |            Retrieve all comments for a specific post            |
+|  POST  |       `/posts/:id/comments/`       |      Create a comment on a post (requires authentication)       |
+|  GET   |     `/posts/:id/comments/:pk/`     |                Retrieve a specific comment by ID                |
+|  PUT   |     `/posts/:id/comments/:pk/`     | Update a comment (requires authentication and being the author) |
+| DELETE |     `/posts/:id/comments/:pk/`     | Delete a comment (requires authentication and being the author) |
+|  PUT   |  `/posts/:id/comments/:pk/like/`   |    Like/Unlike a specific comment (requires authentication)     |
+|  GET   | `/posts/:id/comments/:id/replies/` |           Retrieve all replies for a specific comment           |
+|  POST  | `/posts/:id/comments/:id/replies/` |              Create a reply to a specific comment               |
 
 - **Users:**
 
