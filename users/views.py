@@ -37,6 +37,10 @@ class LogoutView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
 
     def post(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+
         logout(request)
         response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/account/login'})
         response.status_code = status.HTTP_204_NO_CONTENT
@@ -90,7 +94,7 @@ class UserCreate(generics.CreateAPIView):
         user = serializer.save()
         login(request, user)
         response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
-        response.status_code = status.HTTP_200_OK
+        response.status_code = status.HTTP_201_CREATED
         return response
 
 
@@ -126,10 +130,13 @@ class PasswordChangeView(generics.UpdateAPIView):
 
 
 class FollowUserView(generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
     serializer_class = FollowSerializer
 
     def create(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+
         username = self.kwargs['username']
         user_to_follow = User.objects.filter(username__iexact=username).first()
         if not user_to_follow:
