@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2jTbuO9NvrLxCEHGBUx3cP8K2Ad" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django tests.Test: posts.tests.CommentTestCase.test_comment_update_not_author.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_comment_like.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_post_like.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike.executor": "Run",
+    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated.executor": "Run",
+    "Django tests.Test: users.tests.ProfileTestCase.executor": "Run",
+    "Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp/media/avatars",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\media\avatars" />
+      <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django tests.Test: users.tests.ProfileTestCase">
+    <configuration name="Test: posts.tests.LikeTestCase.test_comment_like" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="posts.tests.LikeTestCase.test_comment_like" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: posts.tests.LikeTestCase.test_comment_unlike" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="posts.tests.LikeTestCase.test_comment_unlike" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: posts.tests.LikeTestCase.test_post_like_unauthenticated" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="posts.tests.LikeTestCase.test_post_like_unauthenticated" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: users.tests.ProfileTestCase" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="users.tests.ProfileTestCase" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="users.tests.TestFollowUser.test_unfollow_user_unauthenticated" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SimpleSocialApp" type="Python.DjangoServer" factoryName="Django server">
+      <module name="SimpleSocialApp" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Django tests.Test: users.tests.ProfileTestCase" />
+        <item itemvalue="Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated" />
+        <item itemvalue="Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated" />
+        <item itemvalue="Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike" />
+        <item itemvalue="Django tests.Test: posts.tests.LikeTestCase.test_comment_like" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="" />
+      <created>1721414241043</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721414241043</updated>
+      <workItem from="1721414243238" duration="2019000" />
+      <workItem from="1721416721540" duration="378000" />
+      <workItem from="1721467900476" duration="1032000" />
+      <workItem from="1721468952929" duration="17503000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_post_like_unauthenticated.coverage" NAME="Test: posts.tests.LikeTestCase.test_post_like_unauthenticated Coverage Results" MODIFIED="1721473437850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_comment_unlike_unauthenticated.coverage" NAME="Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated Coverage Results" MODIFIED="1721473265568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__users_tests_TestFollowUser_test_unfollow_user_unauthenticated.coverage" NAME="Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated Coverage Results" MODIFIED="1721475177966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_comment_unlike.coverage" NAME="Test: posts.tests.LikeTestCase.test_comment_unlike Coverage Results" MODIFIED="1721473375524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_comment_like.coverage" NAME="Test: posts.tests.LikeTestCase.test_comment_like Coverage Results" MODIFIED="1721473368927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__users_tests_ProfileTestCase.coverage" NAME="Test: users.tests.ProfileTestCase Coverage Results" MODIFIED="1721490637775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_post_like.coverage" NAME="Test: posts.tests.LikeTestCase.test_post_like Coverage Results" MODIFIED="1721473303197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_post_unlike.coverage" NAME="Test: posts.tests.LikeTestCase.test_post_unlike Coverage Results" MODIFIED="1721473362530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_LikeTestCase_test_post_unlike_unauthenticated.coverage" NAME="Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated Coverage Results" MODIFIED="1721473236371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/SimpleSocialApp$Test__posts_tests_CommentTestCase_test_comment_update_not_author.coverage" NAME="Test: posts.tests.CommentTestCase.test_comment_update_not_author Coverage Results" MODIFIED="1721473274605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>

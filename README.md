@@ -30,6 +30,13 @@ This is a Django REST API project that provides functionalities for users to int
     - Users can create comments on posts.
     - Users can create replies to comments.
     - Users can view all replies to a specific comment.<br><br>
+- **Likes:**
+    - Users can like and unlike posts and comments.<br><br>
+- **Posts:**
+    - Posts include an author, content, and an image.
+    - Users can view all posts.
+    - Users can view a specific post by ID.
+    - Users can search for posts by content and author username.<br><br>
 
 ### Technologies
 
