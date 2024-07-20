@@ -28,11 +28,9 @@ class PostListCreate(generics.ListCreateAPIView):
                 Q(content__icontains=search_term) |
                 Q(author__username__icontains=search_term)
             )
-        else:
-            following_ids = Follow.objects.filter(follower=user).values_list('id', flat=True)
+        elif user.is_authenticated:
+            following_ids = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
             if following_ids:
-                for test in following_ids:
-                    print(test)
                 queryset = queryset.filter(author__id__in=following_ids).order_by('-created_at')
 
         return queryset
