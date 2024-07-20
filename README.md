@@ -5,19 +5,29 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Public access:**
     - View all existing posts and comments.
+    - Search for posts and comments by content and author username.
+    - View user information by username.
 - **Authenticated user access:**
     - Create new posts and comments.
     - Like/unlike existing posts and comments.
+    - Update and delete posts and comments (requires being the author).
     - Update user information (excluding username).
     - Change password (requires old password).
 - **User registration and login/logout:**
     - Users can register for new accounts.
     - Existing users can log in and logout.
+- **Follow and unfollow users:**
+    - Users can follow and unfollow other users.
+    - View all users followed by the authenticated user.
+    - View all users following the authenticated user.
+- **Posts of followings:**
+    - Users can view posts from the users they are following.
 
 ### Technologies
 
 - Django (web framework)
 - Django REST framework (API development toolkit)
+- Django Filter (filtering library)
 
 ## Installation
 
@@ -99,6 +109,28 @@ This is a Django REST API project that provides functionalities for users to int
 |  PUT   |      `/account/login/`      |                   Login an existing user                    |
 |  PUT   |     `/account/logout/`      |                Logout from existing account                 |
 |  PUT   | `/account/password-change/` |        Change user password (requires old password)         |
+
+- **Search:**
+You can now search for posts and comments based on their content and the author's username.
+
+| Method |                 URL Path                 |                                   Description                                   |
+|:------:|:----------------------------------------:|:-------------------------------------------------------------------------------:|
+|  GET   |        `/posts/?search=something`        |               Use the search query parameter in the URL for posts               |
+|  GET   | `/posts/:id/comments/?search=something/` | Use the search query parameter within the comments endpoint for a specific post |
+|  GET   |      `/users/?username=something/`       |            Use the search query parameter within the users endpoint             |
+
+The search is case-insensitive and will return results matching the search term in the content or author's username of posts or comments.
+
+- **Follow:**
+
+| Method |            URL Path            |                      Description                      |
+|:------:|:------------------------------:|:-----------------------------------------------------:|
+|  GET   |  `/users/profile/followings/`  | Retrieve all users followed by the authenticated user |
+|  GET   |  `/users/profile/followers/`   |  Retrieve all users following the authenticated user  |
+|  PUT   |   `/users/:username/follow/`   |                Follow/Unfollow a user                 |
+|  GET   | `/users/:username/followers/`  |     Retrieve all users following a specific user      |
+|  GET   | `/users/:username/followings/` |    Retrieve all users followed by a specific user     |
+
 
 **Note:**
 This project is under development, and I'm working on improving the features and functionalities.
