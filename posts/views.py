@@ -34,7 +34,6 @@ class PostListCreate(generics.ListCreateAPIView):
             if following_ids:
                 queryset = queryset.filter(author__id__in=following_ids).order_by('-created_at')
 
-        print(serialize('json', queryset))
         return queryset
 
     def perform_create(self, serializer):

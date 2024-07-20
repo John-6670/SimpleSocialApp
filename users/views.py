@@ -60,7 +60,7 @@ class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserListView(generics.ListAPIView):
-    serializer_class = UserInformationSerializer
+    serializer_class = UserSmallInformationSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     queryset = User.objects.all()
 

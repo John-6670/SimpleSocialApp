@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIClient
 
+from users.models import Profile
+
 
 # Create your tests here.
 class TestSetup(TestCase):
@@ -24,7 +26,7 @@ class TestCreateUser(TestSetup):
         response = self.client.post('/users/register/', {'password': 'testPass'})
         self.assertEqual(response.status_code, 400, 'Status code is not 400')
 
-    def  test_create_user_no_confirm_password(self):
+    def test_create_user_no_confirm_password(self):
         response = self.client.post('/users/register/', {'username': 'testUser', 'password': 'testPass'})
         self.assertEqual(response.status_code, 400, 'Status code is not 400')
 
@@ -157,3 +159,28 @@ class TestShowUser(TestSetup):
         new_user = User.objects.create(username='newUser', password='newPass')
         response = self.client.get(f'/users/{new_user.username}/')
         self.assertEqual(response.status_code, 200, 'Status code is not 200')
+
+
+class ProfileTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testUser', password='testPass')
+
+    def test_profile_created(self):
+        self.assertIsNotNone(Profile.objects.get(user=self.user))
+
+    def test_profile_retrieved(self):
+        profile = Profile.objects.get(user=self.user)
+        self.assertEqual(profile.user.username, 'testUser')
+
+    def test_profile_updated(self):
+        profile = Profile.objects.get(user=self.user)
+        profile.bio = 'Test bio'
+        profile.save()
+        updated_profile = Profile.objects.get(user=self.user)
+        self.assertEqual(updated_profile.bio, 'Test bio')
+
+    def test_profile_deleted(self):
+        profile = Profile.objects.get(user=self.user)
+        profile.delete()
+        with self.assertRaises(Profile.DoesNotExist):
+            Profile.objects.get(user=self.user)

@@ -6,22 +6,26 @@ This is a Django REST API project that provides functionalities for users to int
 - **Public access:**
     - View all existing posts and comments.
     - Search for posts and comments by content and author username.
-    - View user information by username.
+    - View user information by username.<br><br>
 - **Authenticated user access:**
     - Create new posts and comments.
     - Like/unlike existing posts and comments.
     - Update and delete posts and comments (requires being the author).
     - Update user information (excluding username).
-    - Change password (requires old password).
+    - Change password (requires old password).<br><br>
 - **User registration and login/logout:**
     - Users can register for new accounts.
-    - Existing users can log in and logout.
+    - Existing users can log in and logout.<br><br>
 - **Follow and unfollow users:**
     - Users can follow and unfollow other users.
     - View all users followed by the authenticated user.
-    - View all users following the authenticated user.
+    - View all users following the authenticated user.<br><br>
 - **Posts of followings:**
-    - Users can view posts from the users they are following.
+    - Users can view posts from the users they are following.<br><br>
+- **User profile:**
+    - Each user has a profile associated with their account
+    - The profile includes a bio, birthdate, and a profile picture.
+    - The profile picture is stored in the 'avatars/' directory<br><br>
 
 ### Technologies
 
@@ -140,34 +144,34 @@ The application includes a comprehensive suite of tests to ensure all functional
     - Test user registration with valid and invalid data.
     - Test user registration without a password.
     - Test user registration without a username.
-    - Test user registration without a confirm password.
+    - Test user registration without a confirmation password.
     - Test user registration with mismatched passwords.
     - Test user registration without an email.
     - Test user registration without a first name.
-    - Test user registration without a last name.
+    - Test user registration without a last name.<br><br>
 
 - **User Login:**
     - Test user login with valid and invalid data.
     - Test user login without a username.
     - Test user login without a password.
     - Test user login with a wrong password.
-    - Test user login with a wrong username.
+    - Test user login with a wrong username.<br><br>
 
 - **User Logout:**
     - Test user logout.
-    - Test user logout when unauthenticated.
+    - Test user logout when unauthenticated.<br><br>
 
 - **User Follow System:**
     - Test following a user.
     - Test following a user when unauthenticated.
     - Test unfollowing a user.
     - Test unfollowing a user when unauthenticated.
-    - Test following a user that does not exist.
+    - Test following a user that does not exist.<br><br>
 
 - **User Profile:**
     - Test showing a user profile.
     - Test showing a user profile when unauthenticated.
-    - Test showing a user that does not exist.
+    - Test showing a user that does not exist.<br><br>
 
 #### Posts:
 - **Posts:**
@@ -177,7 +181,7 @@ The application includes a comprehensive suite of tests to ensure all functional
     - Test deleting a post.
     - Test searching for posts.
     - Test creating a post when unauthenticated.
-    - Test updating a post when not the author.
+    - Test updating a post when not the author.<br><br>
 
 - **Comments:**
     - Test retrieving all comments for a specific post.
@@ -186,7 +190,7 @@ The application includes a comprehensive suite of tests to ensure all functional
     - Test deleting a comment.
     - Test searching for comments within a specific post.
     - Test creating a comment when unauthenticated.
-    - Test updating a comment when not the author.
+    - Test updating a comment when not the author.<br><br>
 
 - **Likes:**
     - Test liking a post.
@@ -196,7 +200,7 @@ The application includes a comprehensive suite of tests to ensure all functional
     - Test liking a post when unauthenticated.
     - Test unliking a post when unauthenticated.
     - Test liking a comment when unauthenticated.
-    - Test unliking a comment when unauthenticated.
+    - Test unliking a comment when unauthenticated.<br><br>
 
 To run the tests, use the following command:
 
