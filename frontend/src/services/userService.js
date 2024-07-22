@@ -23,8 +23,19 @@ export const deleteUser = async () => {
 };
 
 export const register = async newUser => {
-  const response = await axios.post(`${API_URL}/register/`, newUser);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}/register/`, newUser);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error.response !== undefined) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    }
+  }
 };
 
 export const login = async user => {

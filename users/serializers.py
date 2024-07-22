@@ -14,22 +14,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(write_only=True)
     profile = ProfileSerializer(required=False)
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'confirm_password', 'profile']
-        write_only_fields = ['password', 'confirm_password']
-
-    def validate(self, attrs):
-        if attrs['password'] != attrs['confirm_password']:
-            raise serializers.ValidationError({"password": "Passwords don't match."})
-        return attrs
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'profile']
+        write_only_fields = ['password']
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)
-        del validated_data['confirm_password']
         user = User.objects.create_user(**validated_data)
         if profile_data:
             Profile.objects.create(user=user, **profile_data)
