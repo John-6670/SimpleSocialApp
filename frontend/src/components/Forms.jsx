@@ -10,7 +10,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const user = { username: username, password: password};
+    const user = { username, password};
     const response = await login(user);
 
     if (response !== undefined) {
@@ -41,6 +41,7 @@ const LoginForm = () => {
           <button className="form-button" type="submit">
               Login
           </button>
+            <p>Don't have an account? <a className="form-link" href="/register">Sign Up</a></p>
       </form>
   );
 };
@@ -55,10 +56,6 @@ const RegisterForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (password !== confirmPassword) {
-            // handle password mismatch here
-            return;
-        }
         const newUser = {username, password};
         const response = await register(newUser);
         if (response.status === 201) {
@@ -115,9 +112,9 @@ const RegisterForm = () => {
                 placeholder="Email"
             />
             <button className="form-button" type="submit">
-                Login
+                Sign Up
             </button>
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <a className="form-link" href="/login">Login</a></p>
         </form>
     );
 };

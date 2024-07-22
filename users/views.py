@@ -96,7 +96,9 @@ class UserCreate(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         login(request, user)
-        response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
+        user_dic = model_to_dict(user)
+        del user_dic['password']
+        response = JsonResponse({'message': 'User created', 'user': user_dic})
         response.status_code = status.HTTP_201_CREATED
         return response
 

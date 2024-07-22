@@ -39,3 +39,9 @@
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+.form-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 10px;
+}
