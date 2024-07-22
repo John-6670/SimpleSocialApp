@@ -27,9 +27,11 @@ class LoginView(generics.GenericAPIView):
 
         if user is not None:
             login(request, user)
-            user_dic = model_to_dict(user)
-            del user_dic['password']
-            response = JsonResponse({'message': 'Login successful', 'user': user_dic })
+            profile = user.profile
+            profile_dic = model_to_dict(profile)
+            # del profile_dic['user']
+            profile_dic['profile_pic'] = request.build_absolute_uri(profile_dic['profile_pic'].url)
+            response = JsonResponse({'message': 'Login successful', 'user': profile_dic})
             response.status_code = status.HTTP_200_OK
             return response
 
@@ -45,7 +47,7 @@ class LogoutView(generics.GenericAPIView):
             return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
 
         logout(request)
-        response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/account/login'})
+        response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/users/login'})
         response.status_code = status.HTTP_204_NO_CONTENT
         return response
 
