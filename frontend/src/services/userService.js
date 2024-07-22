@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_URL = 'http://localhost:8000/users';
 
@@ -28,8 +28,12 @@ export const register = async newUser => {
 };
 
 export const login = async user => {
+  try {
     const response = await axios.post(`${API_URL}/login/`, user);
     return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const logout = async () => {

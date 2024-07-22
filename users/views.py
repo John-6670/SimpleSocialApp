@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.forms import model_to_dict
 from django.http import JsonResponse, Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
@@ -26,7 +27,9 @@ class LoginView(generics.GenericAPIView):
 
         if user is not None:
             login(request, user)
-            response = JsonResponse({'message': 'Login successful', 'redirect_url': '/posts'})
+            user_dic = model_to_dict(user)
+            del user_dic['password']
+            response = JsonResponse({'message': 'Login successful', 'user': user_dic })
             response.status_code = status.HTTP_200_OK
             return response
 
