@@ -23,7 +23,7 @@ class CommentListCreateSerializer(serializers.ModelSerializer):
 
     def get_liked_by_user(self, obj):
         user = self.context.get('request').user
-        if user.is_authenticated:
+        if not user.is_authenticated:
             return False
 
         return Like.objects.filter(user=user, content_type=ContentType.objects.get_for_model(Comment),
