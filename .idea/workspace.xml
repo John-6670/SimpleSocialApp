@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/commentService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/postService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/userService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,20 +58,24 @@
     "Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp/media/avatars",
+    "git-widget-placeholder": "front",
+    "last_opened_file_path": "C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\media\avatars" />
       <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp" />
+      <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\media\avatars" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\frontend\src\styles" />
     </key>
   </component>
   <component name="RunManager" selected="Django tests.Test: users.tests.ProfileTestCase">
@@ -214,6 +238,8 @@
       <workItem from="1721416721540" duration="378000" />
       <workItem from="1721467900476" duration="1032000" />
       <workItem from="1721468952929" duration="17503000" />
+      <workItem from="1721679918701" duration="3000" />
+      <workItem from="1721679944036" duration="1188000" />
     </task>
     <servers />
   </component>
