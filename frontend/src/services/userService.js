@@ -7,11 +7,6 @@ export const getUser = async username => {
   return response.data;
 };
 
-export const getProfile = async () => {
-  const response = await axios.get(`${API_URL}/profile/`);
-  return response.data;
-};
-
 export const updateUser = async updatedUser => {
   const response = await axios.put(`${API_URL}/profile/`, updatedUser);
   return response.data;
