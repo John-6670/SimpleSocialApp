@@ -83,6 +83,7 @@ const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState({});
+    const navigate = useNavigate();
 
     const validateForm = () => {
         let errors = {};
@@ -98,7 +99,7 @@ const RegisterForm = () => {
             isValid = false;
         }
 
-        if (!email.includes('@')) {
+        if (!email.includes('@') && email) {
             errors.email = 'Invalid email';
             isValid = false;
         }
@@ -140,18 +141,19 @@ const RegisterForm = () => {
 
         const newUser = { username, password, first_name: firstName, last_name: lastName, email};
         const response = await register(newUser);
-        // if (response.status === 201) {
-        //     // handle successful registration here
-        // } else {
-        //     // handle registration error here
-        // }
+        if (response !== undefined) {
+            alert('Registration successful');
+            navigate('/login');
+        } else {
+            alert('Username already exists. Please try again.');
+        }
     };
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
             <h1>Sign Up</h1>
             <h2>Create your account</h2>
-            
+
             <input
                 className="form-input"
                 type="text"
