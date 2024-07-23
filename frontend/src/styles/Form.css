@@ -1,22 +1,27 @@
 .form-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     margin: 50px auto;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
     max-width: 400px;
 }
 
 .form-input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 .form-button {
@@ -44,4 +49,13 @@
     color: #007bff;
     text-decoration: none;
     margin-left: 10px;
+}
+
+.form-error {
+    color: red;
+    margin: 10px 0;
+}
+
+.form-input-error {
+    border: 1px solid red;
 }

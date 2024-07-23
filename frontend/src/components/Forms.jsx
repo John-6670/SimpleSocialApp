@@ -6,43 +6,71 @@ import '../styles/Form.css';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState({});
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const user = { username, password};
-    const response = await login(user);
-    console.log(response); // TODO: user returned from the API
+    const validateForm = () => {
+        let errors = {};
+        let isValid = true;
 
-    if (response !== undefined) {
-      localStorage.setItem('user', response.user);
-      // navigate('/'); // TODO: uncomment this line after creating the Home Page
-    } else {
-        alert('Invalid username or password')
-    }
+        if (!username) {
+            errors.username = 'Username is required';
+            isValid = false;
+        }
+
+        if (!password) {
+            errors.password = 'Password is required';
+            isValid = false;
+        }
+
+        setError(errors);
+        return isValid;
+    };
+
+  const handleSubmit = async (event) => {
+      event.preventDefault();
+
+      if (!validateForm()) {
+          return;
+      }
+
+      const user = { username, password};
+      const response = await login(user);
+
+      if (response !== undefined) {
+          localStorage.setItem('profile', response.profile);
+          // navigate('/'); // TODO: uncomment this line after creating the Home Page
+      } else {
+          alert('Invalid username or password')
+      }
   };
 
   return (
       <form onSubmit={handleSubmit} className="form-container">
           <h1>Login</h1>
-          <input
-              className="form-input"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-          />
-          <input
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-          />
+          <h2>Welcome back</h2>
+
+          {error.username && <p className="form-error">{error.username}</p>}
+            <input
+                className="form-input"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+            />
+            {error.password && <p className="form-error">{error.password}</p>}
+            <input
+                className="form-input "
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+            />
+
           <button className="form-button" type="submit">
               Login
           </button>
-            <p>Don't have an account? <a className="form-link" href="/register">Sign Up</a></p>
+          <p>Don't have an account? <a className="form-link" href="/register">Sign Up</a></p>
       </form>
   );
 };
@@ -70,14 +98,38 @@ const RegisterForm = () => {
             isValid = false;
         }
 
-        if (password !== confirmPassword) {
-            errors.confirmPassword = 'Passwords do not match';
+        if (!email.includes('@')) {
+            errors.email = 'Invalid email';
             isValid = false;
         }
 
         setError(errors);
         return isValid;
     }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        if (e.target.value !== confirmPassword) {
+            setError(prevErrors => ({ ...prevErrors, confirmPassword: 'Passwords do not match' }));
+        } else {
+            setError(prevErrors => {
+                const { confirmPassword, ...rest } = prevErrors;
+                return rest;
+            });
+        }
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+        if (password !== e.target.value) {
+            setError(prevErrors => ({ ...prevErrors, confirmPassword: 'Passwords do not match' }));
+        } else {
+            setError(prevErrors => {
+                const { confirmPassword, ...rest } = prevErrors;
+                return rest;
+            });
+        }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -99,6 +151,7 @@ const RegisterForm = () => {
         <form onSubmit={handleSubmit} className="form-container">
             <h1>Sign Up</h1>
             <h2>Create your account</h2>
+            
             <input
                 className="form-input"
                 type="text"
@@ -113,6 +166,7 @@ const RegisterForm = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last Name"
             />
+            {error.username && <p className="form-error">{error.username}</p>}
             <input
                 className="form-input"
                 type="text"
@@ -120,23 +174,23 @@ const RegisterForm = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
             />
-            {error.username && <p className="form-error">{error.username}</p>}
-            <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
             {error.password && <p className="form-error">{error.password}</p>}
             <input
                 className="form-input"
                 type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm Password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Password"
             />
             {error.confirmPassword && <p className="form-error">{error.confirmPassword}</p>}
+            <input
+                className="form-input"
+                type="password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                placeholder="Confirm Password"
+            />
+            {error.email && <p className="form-error">{error.email}</p>}
             <input
                 className="form-input"
                 type="email"
@@ -144,6 +198,7 @@ const RegisterForm = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
             />
+
             <button className="form-button" type="submit">
                 Sign Up
             </button>

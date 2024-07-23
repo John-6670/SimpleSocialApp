@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Forms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Forms.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Form.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Form.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,31 +28,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django tests.Test: posts.tests.CommentTestCase.test_comment_update_not_author.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_like.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_like.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated.executor": "Run",
-    "Django tests.Test: users.tests.ProfileTestCase.executor": "Run",
-    "Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "front",
-    "last_opened_file_path": "C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Django tests.Test: posts.tests.CommentTestCase.test_comment_update_not_author.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_like.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_like.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_unlike.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: users.tests.ProfileTestCase.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;front&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp" />
@@ -220,6 +224,7 @@
       <workItem from="1721468952929" duration="17503000" />
       <workItem from="1721679918701" duration="3000" />
       <workItem from="1721679944036" duration="5904000" />
+      <workItem from="1721741596940" duration="6076000" />
     </task>
     <servers />
   </component>

@@ -28,10 +28,10 @@ class LoginView(generics.GenericAPIView):
         if user is not None:
             login(request, user)
             profile = user.profile
-            profile_dic = model_to_dict(profile)
-            # del profile_dic['user']
-            profile_dic['profile_pic'] = request.build_absolute_uri(profile_dic['profile_pic'].url)
-            response = JsonResponse({'message': 'Login successful', 'user': profile_dic})
+            profile_dic = model_to_dict(user.profile)
+            profile_dic['user'] = model_to_dict(user)
+            profile_dic['profile_pic'] = profile.profile_pic.url if profile.profile_pic else None
+            response = JsonResponse({'message': 'Login successful', 'profile': profile_dic})
             response.status_code = status.HTTP_200_OK
             return response
 
@@ -96,11 +96,8 @@ class UserCreate(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        login(request, user)
-        user_dic = model_to_dict(user)
-        del user_dic['password']
-        response = JsonResponse({'message': 'User created', 'user': user_dic})
+        serializer.save()
+        response = JsonResponse({'message': 'User created'})
         response.status_code = status.HTTP_201_CREATED
         return response
 
