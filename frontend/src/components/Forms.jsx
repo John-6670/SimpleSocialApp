@@ -12,7 +12,7 @@ const LoginForm = () => {
     event.preventDefault();
     const user = { username, password};
     const response = await login(user);
-    console.log(response);
+    console.log(response); // TODO: user returned from the API
 
     if (response !== undefined) {
       localStorage.setItem('user', response.user);
