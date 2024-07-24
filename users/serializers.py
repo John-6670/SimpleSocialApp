@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate
 from rest_framework import serializers
-from rest_framework.authtoken.admin import User
+from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from posts.models import Post
 from posts.serializers import PostListCreateSerializer
@@ -85,6 +87,14 @@ class UserInformationSerializer(UserSmallInformationSerializer):
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        username = attrs['username']
+        password = attrs['password']
+
+        user = authenticate(request=self.context.get('request'), username=username, password=password)
+        attrs['user'] = user
+        return attrs
 
 
 class LogoutSerializer(serializers.Serializer):

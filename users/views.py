@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import Follow
 from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, \
@@ -15,20 +16,20 @@ from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistr
 # Create your views here.
 class LoginView(generics.GenericAPIView):
     serializer_class = UserLoginSerializer
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = authenticate(
-            username=serializer.validated_data['username'],
-            password=serializer.validated_data['password']
-        )
+        user = serializer.validated_data['user']
 
         if user is not None:
-            login(request, user)
-            response = JsonResponse({'message': 'Login successful', 'redirect_url': '/posts'})
-            response.status_code = status.HTTP_200_OK
-            return response
+            refresh = RefreshToken.for_user(user)
+            response = {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }
+            return Response(response, status=status.HTTP_200_OK)
 
         return Response({'message': 'username or password is incorrect'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -84,9 +85,10 @@ class UserRetrieveView(generics.RetrieveAPIView):
         return user
 
 
-class UserCreate(generics.CreateAPIView):
+class UserCreateView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     queryset = User.objects.all()
+    permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
