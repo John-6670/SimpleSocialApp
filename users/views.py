@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import Follow
-from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, \
+from users.serializers import UserLoginSerializer, UserRegistrationSerializer, \
     UserInformationSerializer, PasswordChangeSerializer, FollowSerializer, UserSmallInformationSerializer
 
 
@@ -35,17 +35,16 @@ class LoginView(generics.GenericAPIView):
 
 
 class LogoutView(generics.GenericAPIView):
-    serializer_class = LogoutSerializer
-
     def post(self, request):
-        user = request.user
-        if not user.is_authenticated:
-            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            refresh_token = request.data['refresh']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
 
-        logout(request)
-        response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/account/login'})
-        response.status_code = status.HTTP_204_NO_CONTENT
-        return response
+            # BlackListedToken.objects.create(token=refresh_token, user=request.user)
+            return Response({'message': 'You have been logged out'}, status=status.HTTP_200_OK)
+        except KeyError:
+            return Response({'message': 'Refresh token is required'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
