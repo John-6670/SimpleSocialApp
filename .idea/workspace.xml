@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +41,8 @@
     &quot;Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/OneDrive/Documents/Projects/Python/django/SimpleSocialApp/media/avatars&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;JWT&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/OneDrive/Documents/Projects/Python/django/Django-Portfolio&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -219,12 +218,9 @@
       <workItem from="1721467900476" duration="1032000" />
       <workItem from="1721468952929" duration="17503000" />
       <workItem from="1721739720030" duration="333000" />
-<<<<<<< Updated upstream
-=======
       <workItem from="1721810700193" duration="558000" />
       <workItem from="1721851035528" duration="3133000" />
-      <workItem from="1721896569627" duration="9615000" />
->>>>>>> Stashed changes
+      <workItem from="1721896569627" duration="9487000" />
     </task>
     <servers />
   </component>

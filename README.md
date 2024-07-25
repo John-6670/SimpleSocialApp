@@ -13,9 +13,10 @@ This is a Django REST API project that provides functionalities for users to int
     - Update and delete posts and comments (requires being the author).
     - Update user information (excluding username).
     - Change password (requires old password).<br><br>
-- **User registration and login/logout:**
+- **User registration and login/logout (JWT):**
     - Users can register for new accounts.
-    - Existing users can log in and logout.<br><br>
+    - Existing users can log with their username and password.
+    - Users can log out by sending a POST request with their refresh key<br><br>
 - **Follow and unfollow users:**
     - Users can follow and unfollow other users.
     - View all users followed by the authenticated user.
@@ -118,14 +119,14 @@ This is a Django REST API project that provides functionalities for users to int
 
 - **Users:**
 
-| Method |          URL Path           |                         Description                         |
-|:------:|:---------------------------:|:-----------------------------------------------------------:|
-|  GET   |         `/account/`         | Retrieve information about the currently authenticated user |
-|  POST  |         `/account/`         |        Update user information (excluding username)         |
-|  PUT   |    `/account/register/`     |                     Register a new user                     |
-|  PUT   |      `/account/login/`      |                   Login an existing user                    |
-|  PUT   |     `/account/logout/`      |                Logout from existing account                 |
-|  PUT   | `/account/password-change/` |        Change user password (requires old password)         |
+| Method |         URL Path          |                         Description                         |
+|:------:|:-------------------------:|:-----------------------------------------------------------:|
+|  GET   |         `/users/`         | Retrieve information about the currently authenticated user |
+|  POST  |         `/users/`         |        Update user information (excluding username)         |
+|  PUT   |    `/users/register/`     |                     Register a new user                     |
+|  PUT   |      `/users/login/`      |   Login an existing user (get access and refresh tokens)    |
+|  PUT   |     `/users/logout/`      |  Logout from existing account (blacklisting refresh token)  |
+|  PUT   | `/users/password-change/` |        Change user password (requires old password)         |
 
 - **Search:**
 You can now search for posts and comments based on their content and the author's username.
