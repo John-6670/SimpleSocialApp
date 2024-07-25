@@ -7,12 +7,7 @@
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimpleSocialApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimpleSocialApp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimpleSocialApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimpleSocialApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
@@ -226,7 +221,7 @@
       <workItem from="1721739720030" duration="333000" />
       <workItem from="1721810700193" duration="558000" />
       <workItem from="1721851035528" duration="3133000" />
-      <workItem from="1721896569627" duration="4784000" />
+      <workItem from="1721896569627" duration="8038000" />
     </task>
     <servers />
   </component>

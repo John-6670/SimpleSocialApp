@@ -89,6 +89,17 @@ class PasswordChangeSerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
 
+    def validate(self, attrs):
+        if attrs['new_password'] != attrs['confirm_password']:
+            raise serializers.ValidationError({"password": "Passwords don't match."})
+        return attrs
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError('Old password is incorrect')
+        return value
+
 
 class FollowSerializer(serializers.ModelSerializer):
     class Meta:

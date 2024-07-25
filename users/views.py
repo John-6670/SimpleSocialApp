@@ -67,45 +67,20 @@ class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
 
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.serializer_class(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     user = serializer.save()
-    #     login(request, user)
-    #     response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
-    #     response.status_code = status.HTTP_201_CREATED
-    #     return response
-
 
 class PasswordChangeView(generics.UpdateAPIView):
     serializer_class = PasswordChangeSerializer
     permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
 
     def get_object(self):
         return self.request.user
 
     def update(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
 
-        user = request.user
-        if not user.is_authenticated:
-            return Response({'message': 'You are not logged in'}, status=status.HTTP_400_BAD_REQUEST)
-
-        old_password = serializer.validated_data['old_password']
-        new_password = serializer.validated_data['new_password']
-        confirm_password = serializer.validated_data['confirm_password']
-        if not user.check_password(old_password):
-            return Response({'message': 'Old password is incorrect'}, status=status.HTTP_400_BAD_REQUEST)
-        if new_password != confirm_password:
-            return Response({'message': "Passwords don't match"}, status=status.HTTP_400_BAD_REQUEST)
-
-        user.set_password(new_password)
-        user.save()
-        login(request, user)
-        response = JsonResponse({'message': 'Password changed successfully', 'redirect_url': '/account'})
-        response.status_code = status.HTTP_200_OK
-        return response
+        return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
 
 
 class FollowUserView(generics.CreateAPIView):
