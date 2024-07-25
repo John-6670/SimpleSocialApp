@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.http import JsonResponse, Http404
@@ -9,39 +9,17 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import Follow
-from users.serializers import UserLoginSerializer, UserRegistrationSerializer, \
-    UserInformationSerializer, PasswordChangeSerializer, FollowSerializer, UserSmallInformationSerializer
+from users.serializers import (UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer,
+                               FollowSerializer, UserSmallInformationSerializer)
 
 
 # Create your views here.
-class LoginView(generics.GenericAPIView):
-    serializer_class = UserLoginSerializer
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-
-        if user is not None:
-            refresh = RefreshToken.for_user(user)
-            response = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }
-            return Response(response, status=status.HTTP_200_OK)
-
-        return Response({'message': 'username or password is incorrect'}, status=status.HTTP_400_BAD_REQUEST)
-
-
 class LogoutView(generics.GenericAPIView):
     def post(self, request):
         try:
             refresh_token = request.data['refresh']
             token = RefreshToken(refresh_token)
             token.blacklist()
-
-            # BlackListedToken.objects.create(token=refresh_token, user=request.user)
             return Response({'message': 'You have been logged out'}, status=status.HTTP_200_OK)
         except KeyError:
             return Response({'message': 'Refresh token is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -89,14 +67,14 @@ class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        login(request, user)
-        response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
-        response.status_code = status.HTTP_201_CREATED
-        return response
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.serializer_class(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     user = serializer.save()
+    #     login(request, user)
+    #     response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
+    #     response.status_code = status.HTTP_201_CREATED
+    #     return response
 
 
 class PasswordChangeView(generics.UpdateAPIView):

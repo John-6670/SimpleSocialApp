@@ -84,19 +84,6 @@ class UserInformationSerializer(UserSmallInformationSerializer):
         return instance
 
 
-class UserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-
-    def validate(self, attrs):
-        username = attrs['username']
-        password = attrs['password']
-
-        user = authenticate(request=self.context.get('request'), username=username, password=password)
-        attrs['user'] = user
-        return attrs
-
-
 class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(write_only=True)
     new_password = serializers.CharField(write_only=True)
