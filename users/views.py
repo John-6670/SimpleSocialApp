@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.db import IntegrityError
+from django.forms import model_to_dict
+from django.http import JsonResponse, Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 
-from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer
+from users.models import Follow
+from users.serializers import UserLoginSerializer, LogoutSerializer, UserRegistrationSerializer, \
+    UserInformationSerializer, PasswordChangeSerializer, FollowSerializer, UserSmallInformationSerializer
 
 
 # Create your views here.
@@ -23,7 +27,11 @@ class LoginView(generics.GenericAPIView):
 
         if user is not None:
             login(request, user)
-            response = JsonResponse({'message': 'Login successful', 'redirect_url': '/posts'})
+            profile = user.profile
+            profile_dic = model_to_dict(user.profile)
+            profile_dic['user'] = model_to_dict(user)
+            profile_dic['profile_pic'] = profile.profile_pic.url if profile.profile_pic else None
+            response = JsonResponse({'message': 'Login successful', 'profile': profile_dic})
             response.status_code = status.HTTP_200_OK
             return response
 
@@ -34,8 +42,12 @@ class LogoutView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
 
     def post(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+
         logout(request)
-        response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/account/login'})
+        response = JsonResponse({'message': 'Logout successful', 'redirect_url': '/users/login'})
         response.status_code = status.HTTP_204_NO_CONTENT
         return response
 
@@ -53,7 +65,7 @@ class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserListView(generics.ListAPIView):
-    serializer_class = UserInformationSerializer
+    serializer_class = UserSmallInformationSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     queryset = User.objects.all()
 
@@ -66,6 +78,17 @@ class UserListView(generics.ListAPIView):
             raise ValidationError("Query parameter 'username' is required")
 
 
+class UserRetrieveView(generics.RetrieveAPIView):
+    serializer_class = UserInformationSerializer
+    lookup_field = 'username'
+
+    def get_object(self):
+        user = User.objects.filter(username__iexact=self.kwargs['username']).first()
+        if not user:
+            raise Http404
+        return user
+
+
 class UserCreate(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     queryset = User.objects.all()
@@ -73,10 +96,9 @@ class UserCreate(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        login(request, user)
-        response = JsonResponse({'message': 'User created', 'redirect_url': '/posts'})
-        response.status_code = status.HTTP_200_OK
+        serializer.save()
+        response = JsonResponse({'message': 'User created'})
+        response.status_code = status.HTTP_201_CREATED
         return response
 
 
@@ -109,3 +131,61 @@ class PasswordChangeView(generics.UpdateAPIView):
         response = JsonResponse({'message': 'Password changed successfully', 'redirect_url': '/account'})
         response.status_code = status.HTTP_200_OK
         return response
+
+
+class FollowUserView(generics.CreateAPIView):
+    serializer_class = FollowSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({'message': 'You are not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        username = self.kwargs['username']
+        user_to_follow = User.objects.filter(username__iexact=username).first()
+        if not user_to_follow:
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if request.user.username == user_to_follow.username:
+            return Response({'message': 'You cannot follow yourself'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            Follow.objects.create(follower=request.user, following=user_to_follow)
+            return Response({'message': 'User followed'}, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            Follow.objects.get(follower=request.user, following=user_to_follow).delete()
+            return Response({'message': 'User unfollowed'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserFollowersListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSmallInformationSerializer
+
+    def get_queryset(self):
+        try:
+            username = self.kwargs['username']
+            user = User.objects.filter(username__iexact=username).first()
+        except KeyError:
+            user = self.request.user
+
+        if not user:
+            raise Http404
+
+        follower_ids = Follow.objects.filter(following=user).values_list('follower_id', flat=True)
+        return User.objects.filter(id__in=follower_ids)
+
+
+class UserFollowingsListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSmallInformationSerializer
+
+    def get_queryset(self):
+        try:
+            username = self.kwargs['username']
+            user = User.objects.filter(username__iexact=username).first()
+        except KeyError:
+            user = self.request.user
+        if not user:
+            raise Http404
+
+        following_id = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
+        return User.objects.filter(id__in=following_id)
