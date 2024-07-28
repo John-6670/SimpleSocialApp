@@ -1,7 +1,6 @@
-from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.http import JsonResponse, Http404
+from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
