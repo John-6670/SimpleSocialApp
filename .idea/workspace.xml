@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done" />
+    <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/05bf6348-4dd3-42ef-b35d-d1325a517cc9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/05bf6348-4dd3-42ef-b35d-d1325a517cc9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e55d7535-36ce-4618-9f2e-21a33e8e7f41.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e55d7535-36ce-4618-9f2e-21a33e8e7f41/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,30 +26,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django tests.Test: posts.tests.CommentTestCase.test_comment_update_not_author.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_like.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_like.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike.executor": "Run",
-    "Django tests.Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated.executor": "Run",
-    "Django tests.Test: users.tests.ProfileTestCase.executor": "Run",
-    "Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "email-verfication",
-    "last_opened_file_path": "C:/Users/John/OneDrive/Documents/Projects/Python/django/Django-Portfolio",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Django tests.Test: posts.tests.CommentTestCase.test_comment_update_not_author.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_like.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_comment_unlike_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_like.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_like_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_unlike.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: posts.tests.LikeTestCase.test_post_unlike_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: users.tests.ProfileTestCase.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;email-verfication&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/OneDrive/Documents/Projects/Python/django/Django-Portfolio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\media\avatars" />
@@ -221,6 +225,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Done" />
