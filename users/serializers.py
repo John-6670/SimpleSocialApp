@@ -105,3 +105,9 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = '__all__'
         read_only_fields = ['id', 'follower', 'following', 'created_at']
+
+
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email']

@@ -1,7 +1,11 @@
+import os
+
+import jwt
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from dotenv import load_dotenv
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
@@ -10,8 +14,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 
 from users.models import Follow
-from users.serializers import (UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer,
-                               FollowSerializer, UserSmallInformationSerializer)
+from users.serializers import *
 from utils.utils import EmailHelper
 
 
@@ -87,7 +90,28 @@ class UserCreateView(generics.CreateAPIView):
         data = {'email_body': email_body, 'email_subject': 'Verify your email', 'to_email': user['email']}
         EmailHelper.send_email(data)
 
-        return Response({'user_data': user, 'access_token': str(token)}, status=status.HTTP_201_CREATED)
+        return Response({'Message': 'User created'}, status=status.HTTP_201_CREATED)
+
+
+class VerifyEmail(generics.RetrieveAPIView):
+    serializer_class = EmailVerificationSerializer
+
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get('token')
+        try:
+            load_dotenv()
+            payload = jwt.decode(token, os.environ.get('SECRET_KEY'), algorithms=['HS256'])
+            user = User.objects.get(id=payload['user_id'])
+            profile = Profile.objects.get(user=user)
+            if not profile.is_verified:
+                profile.is_verified = True
+                profile.save()
+
+            return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+        except jwt.ExpiredSignatureError:
+            return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordChangeView(generics.UpdateAPIView):

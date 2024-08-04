@@ -9,6 +9,8 @@ urlpatterns = [
     path('verify/', TokenVerifyView.as_view(), name='verify'),
     path('blacklist/', TokenBlacklistView.as_view(), name='blacklist'),
 
+    path('verify-email/', VerifyEmail.as_view(), name='verify_email'),
+
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', UserCreateView.as_view(), name='register'),
