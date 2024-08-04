@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+status_choices = ((1, 'Published'), (0, 'Draft'))
+
+
 # Create your models here.
 class Image(models.Model):
     image = models.ImageField(upload_to='images/')
@@ -14,6 +17,10 @@ class Post(models.Model):
     post_img = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(choices=status_choices, default=1)
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class Comment(models.Model):
@@ -23,6 +30,10 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(choices=status_choices, default=1)
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class Like(models.Model):

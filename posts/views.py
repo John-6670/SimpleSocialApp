@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.serializers import serialize
 from django.db.models import Q
 from django.http import Http404
 from rest_framework import filters
@@ -18,7 +17,7 @@ from .serializers import (PostListCreateSerializer, PostUpdateSerializer, Commen
 class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostListCreateSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(status=1).order_by('-created_at')
 
     def get_queryset(self):
         user = self.request.user
@@ -29,7 +28,8 @@ class PostListCreate(generics.ListCreateAPIView):
                 Q(content__icontains=search_term) |
                 Q(author__username__icontains=search_term)
             )
-        elif user.is_authenticated:
+
+        if user.is_authenticated:
             following_ids = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
             if following_ids:
                 queryset = queryset.filter(author__id__in=following_ids).order_by('-created_at')
@@ -49,9 +49,14 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_object(self):
+        user = self.request.user
         post = Post.objects.filter(id=self.kwargs['id']).first()
         if not post:
             raise Http404
+
+        if post.status == 0 and post.author != user:
+            raise PermissionDenied('You do not have permission to view this post.')
+
         return post
 
     def update(self, request, *args, **kwargs):
@@ -83,9 +88,13 @@ class PostCommentListCreate(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
 
     def get_queryset(self):
+        user = self.request.user
         post = Post.objects.filter(id=self.kwargs['id']).first()
         if not post:
             raise Http404
+
+        if post.status == 0 and post.author != user:
+            raise PermissionDenied('You do not have permission to view this post.')
 
         queryset = super().get_queryset()
         search_term = self.request.query_params.get('search', None)

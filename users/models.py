@@ -19,6 +19,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
