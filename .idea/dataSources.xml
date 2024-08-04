@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db" uuid="05bf6348-4dd3-42ef-b35d-d1325a517cc9">
+    <data-source source="LOCAL" name="db" uuid="9bf47840-5da7-419c-b6bf-88c01e222776">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Matin\Projects\Python\SimpleSocialApp\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\John\OneDrive\Documents\Projects\Python\django\SimpleSocialApp\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

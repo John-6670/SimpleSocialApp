@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from posts.models import Post
 from posts.serializers import PostListCreateSerializer
-from .models import Follow, Profile
+from .models import Follow, Profile, ProfileImage
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -111,3 +111,9 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email']
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileImage
+        fields = ['image']

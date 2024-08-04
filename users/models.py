@@ -5,20 +5,15 @@ from django.dispatch import receiver
 
 
 # Create your models here.
-class Follow(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('follower', 'following')
+class ProfileImage(models.Model):
+    image = models.ImageField(upload_to='avatars/')
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    profile_pic = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    profile_pic = models.ForeignKey(ProfileImage, on_delete=models.CASCADE, related_name='profile_img', null=True)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -37,3 +32,12 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     else:
         Profile.objects.create(user=instance)
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('follower', 'following')

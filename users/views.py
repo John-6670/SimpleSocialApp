@@ -78,17 +78,8 @@ class UserCreateView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user = serializer.data
-
-        user_email = User.objects.get(email=user['email'])
-        token = RefreshToken.for_user(user_email).access_token
-
-        current_site = get_current_site(request).domain
-        relative_link = reverse('confirm-email')
-        absurl = 'http://'+current_site+relative_link+'?token='+ str(token)
-        email_body = 'Hi '+user['username'] + \
-                     ' Use the link below to verify your email \n' + absurl
-        data = {'email_body': email_body, 'email_subject': 'Verify your email', 'to_email': user['email']}
-        EmailHelper.send_email(data)
+        user_email = User.objects.get(username=user['username'])
+        EmailHelper.send_email(user_email)
 
         return Response({'Message': 'User created'}, status=status.HTTP_201_CREATED)
 
