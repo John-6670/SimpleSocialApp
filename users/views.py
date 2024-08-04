@@ -6,10 +6,13 @@ from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 
 from users.models import Follow
 from users.serializers import (UserRegistrationSerializer, UserInformationSerializer, PasswordChangeSerializer,
                                FollowSerializer, UserSmallInformationSerializer)
+from utils.utils import EmailHelper
 
 
 # Create your views here.
@@ -65,6 +68,26 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        user = serializer.data
+
+        user_email = User.objects.get(email=user['email'])
+        token = RefreshToken.for_user(user_email).access_token
+
+        current_site = get_current_site(request).domain
+        relative_link = reverse('confirm-email')
+        absurl = 'http://'+current_site+relative_link+'?token='+ str(token)
+        email_body = 'Hi '+user['username'] + \
+                     ' Use the link below to verify your email \n' + absurl
+        data = {'email_body': email_body, 'email_subject': 'Verify your email', 'to_email': user['email']}
+        EmailHelper.send_email(data)
+
+        return Response({'user_data': user, 'access_token': str(token)}, status=status.HTTP_201_CREATED)
 
 
 class PasswordChangeView(generics.UpdateAPIView):
