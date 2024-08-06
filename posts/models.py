@@ -11,9 +11,10 @@ class Image(models.Model):
 class Post(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    post_img = models.ImageField(upload_to='images/', blank=True, null=True)
+    post_img = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False)
 
 
 class Comment(models.Model):
@@ -23,6 +24,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False)
 
 
 class Like(models.Model):

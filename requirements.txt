@@ -5,3 +5,4 @@ pillow
 django-cors-headers
 djangorestframework-simplejwt
 cryptography
+dotenv
