@@ -44,6 +44,9 @@ This is a Django REST API project that provides functionalities for users to int
 - Django (web framework)
 - Django REST framework (API development toolkit)
 - Django Filter (filtering library)
+- Rest Framework Simple JWT (JWT authentication)
+- Pillow (image processing library)
+- SQLite (database)
 
 ## Installation
 
@@ -65,15 +68,24 @@ This is a Django REST API project that provides functionalities for users to int
    ```bash
    pip install -r requirements.txt
    ```
+   
+4. Create a `.env` file in the root directory and add the following environment variables:
 
-4. Create a Django secret key:
+   ```bash
+   SECRET = 'your_django_secret_key'
+   DEBUG = 'True'
+   ```
+
+   **Note:** Replace `'your_django_secret_key'` with a Django secret key. You can generate one [here](https://djecrety.ir/).
+
+5. Create a Django secret key:
 
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-5. (Optional) Create a superuser account (for initial data management):
+6. (Optional) Create a superuser account (for initial data management):
 
    ```bash
    python manage.py createsuperuser
@@ -127,6 +139,8 @@ This is a Django REST API project that provides functionalities for users to int
 |  PUT   |      `/users/login/`      |   Login an existing user (get access and refresh tokens)    |
 |  PUT   |     `/users/logout/`      |  Logout from existing account (blacklisting refresh token)  |
 |  PUT   | `/users/password-change/` |        Change user password (requires old password)         |
+|  POST  |     `/users/refresh/`     |         Get a new access token using refresh token          |
+|  POST  |    `/users/blacklist/`    |             Blacklist a refresh token (logout)              |
 
 - **Search:**
 You can now search for posts and comments based on their content and the author's username.
