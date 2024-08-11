@@ -1,6 +1,10 @@
+import string
+import random
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -14,6 +18,9 @@ class Post(models.Model):
     post_img = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content[:50]
 
 
 class Comment(models.Model):

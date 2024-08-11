@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
-from django.core.serializers import serialize
 from django.db.models import Q
 from django.http import Http404
 from rest_framework import filters
@@ -9,9 +7,7 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from users.models import Follow
-from .models import Comment, Post, Like
-from .serializers import (PostListCreateSerializer, PostUpdateSerializer, CommentListCreateSerializer, LikeSerializer,
-                          CommentRetrieveUpdateDestroySerializer)
+from .serializers import *
 
 
 # Create your views here.
@@ -142,7 +138,7 @@ class PostCommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
         post = Post.objects.filter(id=self.kwargs['id']).first()
         if not post:
             raise Http404
-        
+
         comment_id = self.kwargs['pk']
         comment = Comment.objects.filter(id=comment_id).first()
         if not comment:
