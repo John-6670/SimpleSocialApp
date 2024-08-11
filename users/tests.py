@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import Profile
 
@@ -76,27 +77,27 @@ class TestLoginUser(TestSetup):
 
     def test_login_user_wrong_password(self):
         response = self.client.post('/users/login/', {'username': 'testUser', 'password': 'wrongPass'})
-        self.assertEqual(response.status_code, 400, 'Status code is not 400')
+        self.assertEqual(response.status_code, 401, 'Status code is not 400')
 
     def test_login_user_wrong_username(self):
         response = self.client.post('/users/login/', {'username': 'wrongUser', 'password': 'testPass'})
-        self.assertEqual(response.status_code, 400, 'Status code is not 400')
+        self.assertEqual(response.status_code, 401, 'Status code is not 400')
 
 
 class TestLogoutUser(TestSetup):
     def setUp(self):
         super().setUp()
         self.user = User.objects.create(username='testUser', password='testPass')
-        self.client.force_authenticate(user=self.user)
+        self.refresh = str(RefreshToken.for_user(self.user))
 
     def test_logout_user(self):
-        response = self.client.post('/users/logout/')
-        self.assertEqual(response.status_code, 204, 'Status code is not 204')
+        response = self.client.post('/users/logout/', {'refresh': self.refresh})
+        self.assertEqual(response.status_code, 200, 'Status code is not 204')
 
     def test_logout_user_unauthenticated(self):
         self.client.force_authenticate(user=None)
-        response = self.client.post('/users/logout/')
-        self.assertEqual(response.status_code, 401, 'Status code is not 401')
+        response = self.client.post('/users/logout/', {'refresh': 'wrongRefreshToken'})
+        self.assertEqual(response.status_code, 400, 'Status code is not 401')
 
 
 class TestFollowUser(TestSetup):
@@ -143,7 +144,7 @@ class TestShowUser(TestSetup):
     def test_show_profile_unauthenticated(self):
         self.client.force_authenticate(user=None)
         response = self.client.get('/users/profile/')
-        self.assertEqual(response.status_code, 403, 'Status code is not 401')
+        self.assertEqual(response.status_code, 401, 'Status code is not 401')
 
     def test_show_user_does_not_exist(self):
         response = self.client.get('/users/notAUser/')
@@ -184,3 +185,33 @@ class ProfileTestCase(TestCase):
         profile.delete()
         with self.assertRaises(Profile.DoesNotExist):
             Profile.objects.get(user=self.user)
+
+
+class TestRefreshEndpoint(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testUser', password='testPass')
+        self.refresh = str(RefreshToken.for_user(self.user))
+
+    def test_endpoint(self):
+        response = self.client.post('/users/refresh/', {'refresh': self.refresh})
+        self.assertEqual(response.status_code, 200)
+
+
+class TestVerifyEndpoint(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testUser', password='testPass')
+        self.token = str(RefreshToken.for_user(self.user).access_token)
+
+    def test_endpoint(self):
+        response = self.client.post('/users/verify/', {'token': self.token})
+        self.assertEqual(response.status_code, 200)
+
+
+class TestBlacklistEndpoint(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testUser', password='testPass')
+        self.refresh = str(RefreshToken.for_user(self.user))
+
+    def test_endpoint(self):
+        response = self.client.post('/users/blacklist/', {'refresh': self.refresh})
+        self.assertEqual(response.status_code, 200)

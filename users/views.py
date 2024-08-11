@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, permissions, filters
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import Follow
@@ -21,8 +22,8 @@ class LogoutView(generics.GenericAPIView):
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response({'message': 'You have been logged out'}, status=status.HTTP_200_OK)
-        except KeyError:
-            return Response({'message': 'Refresh token is required'}, status=status.HTTP_400_BAD_REQUEST)
+        except KeyError and TokenError:
+            return Response({'message': 'Refresh token is invalid'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ShowUserView(generics.RetrieveUpdateDestroyAPIView):
