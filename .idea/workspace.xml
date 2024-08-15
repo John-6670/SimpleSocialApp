@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
-      <change afterPath="$PROJECT_DIR$/users/backends.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimpleSocialApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimpleSocialApp/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +242,7 @@
       <workItem from="1723724379199" duration="421000" />
       <workItem from="1723724812911" duration="800000" />
       <workItem from="1723725632279" duration="2131000" />
-      <workItem from="1723727802191" duration="344000" />
+      <workItem from="1723727802191" duration="720000" />
     </task>
     <servers />
   </component>
