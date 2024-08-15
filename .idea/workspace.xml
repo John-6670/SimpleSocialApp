@@ -7,10 +7,9 @@
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f6b09b6f-b4e5-45ec-91dc-6936e99aed62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f6b09b6f-b4e5-45ec-91dc-6936e99aed62.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +42,7 @@
     &quot;Django tests.Test: users.tests.TestFollowUser.test_unfollow_user_unauthenticated.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;custom-user&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/John/OneDrive/Documents/Projects/Python/django/Django-Portfolio&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -226,7 +225,15 @@
       <workItem from="1723301444146" duration="2655000" />
       <workItem from="1723317043485" duration="2556000" />
       <workItem from="1723367714708" duration="3860000" />
-      <workItem from="1723375964072" duration="6188000" />
+      <workItem from="1723375964072" duration="6926000" />
+      <workItem from="1723723021347" duration="83000" />
+      <workItem from="1723723146782" duration="54000" />
+      <workItem from="1723723218557" duration="50000" />
+      <workItem from="1723723281155" duration="38000" />
+      <workItem from="1723723351530" duration="39000" />
+      <workItem from="1723724379199" duration="421000" />
+      <workItem from="1723724812911" duration="800000" />
+      <workItem from="1723725632279" duration="1361000" />
     </task>
     <servers />
   </component>
