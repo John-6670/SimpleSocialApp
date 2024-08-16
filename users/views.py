@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.contrib.auth.models import User
+from .models import CustomUser as User
 from django.db import IntegrityError
 from django.http import JsonResponse, Http404
 from django_filters.rest_framework import DjangoFilterBackend

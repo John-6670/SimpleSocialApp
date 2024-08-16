@@ -7,6 +7,12 @@
     <list default="true" id="dd7c5262-a080-4490-b4fa-6ab6def0d77e" name="Changes" comment="Done">
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f6b09b6f-b4e5-45ec-91dc-6936e99aed62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f6b09b6f-b4e5-45ec-91dc-6936e99aed62.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimpleSocialApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimpleSocialApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,6 +249,12 @@
       <workItem from="1723724812911" duration="800000" />
       <workItem from="1723725632279" duration="2131000" />
       <workItem from="1723727802191" duration="720000" />
+      <workItem from="1723729049446" duration="45000" />
+      <workItem from="1723729103552" duration="318000" />
+      <workItem from="1723802978851" duration="43000" />
+      <workItem from="1723803050990" duration="71000" />
+      <workItem from="1723803231588" duration="56000" />
+      <workItem from="1723803345801" duration="1679000" />
     </task>
     <servers />
   </component>
